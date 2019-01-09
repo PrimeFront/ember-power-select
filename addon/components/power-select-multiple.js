@@ -84,7 +84,7 @@ export default Component.extend({
     buildSelection(option, select) {
       let newSelection = (select.selected || []).slice(0);
       let idx = -1;
-      for (let i = 0; i < newSelection.length; i++) {
+      for (let i = 0; i < newSelection.get('length'); i++) {
         if (isEqual(newSelection[i], option)) {
           idx = i;
           break;
