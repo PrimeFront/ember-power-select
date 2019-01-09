@@ -27,7 +27,7 @@ import { task, timeout } from 'ember-concurrency';
 
 // Copied from Ember. It shouldn't be necessary in Ember 2.5+
 const assign = Object.assign || function EmberAssign(original, ...args) {
-  for (let i = 0; i < args.length; i++) {
+  for (let i = 0; i < get(args, 'length'); i++) {
     let arg = args[i];
     if (!arg) {
       continue;
@@ -35,7 +35,7 @@ const assign = Object.assign || function EmberAssign(original, ...args) {
 
     let updates = Object.keys(arg);
 
-    for (let i = 0; i < updates.length; i++) {
+    for (let i = 0; i < get(updates, 'length'); i++) {
       let prop = updates[i];
       original[prop] = arg[prop];
     }
@@ -193,7 +193,7 @@ export default Component.extend({
 
   mustShowSearchMessage: computed('publicAPI.{loading,searchText,resultsCount}', 'search', 'searchMessage', function() {
     let publicAPI = this.get('publicAPI');
-    return !publicAPI.loading && publicAPI.searchText.length === 0
+    return !publicAPI.loading && get(publicAPI.searchText, 'length') === 0
       && !!this.get('search') && !!this.get('searchMessage')
       && publicAPI.resultsCount === 0;
   }),
@@ -202,7 +202,7 @@ export default Component.extend({
     let publicAPI = this.get('publicAPI');
     return !publicAPI.loading
       && publicAPI.resultsCount === 0
-      && (!this.get('search') || publicAPI.lastSearchedText.length > 0);
+      && (!this.get('search') || get(publicAPI.lastSearchedText, 'length') > 0);
   }),
 
   // Actions
@@ -427,7 +427,7 @@ export default Component.extend({
       term = publicAPI._expirableSearchText + c;
     }
 
-    if (term.length > 1) {
+    if (get(term, 'length') > 1) {
       // If the term is longer than one char, the user is in the middle of a non-cycling interaction
       // so the offset is just zero (the current selection is a valid match).
       searchStartOffset = 0;
