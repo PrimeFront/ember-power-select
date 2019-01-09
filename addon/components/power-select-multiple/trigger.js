@@ -55,7 +55,7 @@ export default Component.extend({
   triggerMultipleInputStyle: computed('select.{searchText.length,selected.length}', function() {
     let select = this.get('select');
     scheduleOnce('actions', select.actions.reposition);
-    if (!select.selected || select.selected.get('length') === 0) {
+    if (!select.selected || get(select.selected, 'length') === 0) {
       return htmlSafe('width: 100%;');
     } else {
       let textWidth = 0;
@@ -71,7 +71,7 @@ export default Component.extend({
       return;
     }
     let select = this.get('select');
-    return (!select.selected || select.selected.get('length') === 0) ? (this.get('placeholder') || '') : '';
+    return (!select.selected || get(select.selected, 'length') === 0) ? (this.get('placeholder') || '') : '';
   }),
 
   // Actions
@@ -93,7 +93,7 @@ export default Component.extend({
       if (e.keyCode === 8) {
         e.stopPropagation();
         if (isBlank(e.target.value)) {
-          let lastSelection = select.selected[select.selected.length - 1];
+          let lastSelection = select.selected[get(select.selected, 'length') - 1];
           if (lastSelection) {
             select.actions.select(this.get('buildSelection')(lastSelection, select), e);
             if (typeof lastSelection === 'string') {

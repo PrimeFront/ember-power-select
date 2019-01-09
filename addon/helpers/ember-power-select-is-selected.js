@@ -8,7 +8,7 @@ export function emberPowerSelectIsSelected([option, selected]/* , hash*/) {
     return false;
   }
   if (isEmberArray(selected)) {
-    for (let i = 0; i < selected.length; i++) {
+    for (let i = 0; i < selected.get('length'); i++) {
       if (isEqual(selected[i], option)) {
         return true;
       }

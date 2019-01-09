@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import { computed } from '@ember/object';
+import { computed, get } from '@ember/object';
 import layout from '../../templates/components/power-select/options';
 
 const isTouchDevice = (!!window && 'ontouchstart' in window);
@@ -100,7 +100,7 @@ export default Component.extend({
     let parts = index.split('.');
     let options = this.get('options');
     let option = options[parseInt(parts[0], 10)];
-    for (let i = 1; i < parts.length; i++) {
+    for (let i = 1; i < get(parts, 'length'); i++) {
       option = option.options[parseInt(parts[i], 10)];
     }
     return option;
